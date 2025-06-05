@@ -7,6 +7,7 @@ use App\Models\Team;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\Objective;
+use App\Http\Controllers\SlackController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -118,6 +119,8 @@ class TaskController extends Controller
             'status' => 'pending',
         ]);
 
+        SlackController::notifyTaskAssigned($task);
+
         return redirect()->route('manager.tasks')->with('success', 'Tâche créée avec succès');
     }
 
@@ -172,6 +175,8 @@ class TaskController extends Controller
             'status' => 'completed',
             'end_time' => now(),
         ]);
+
+        SlackController::notifyTaskCompleted($task);
 
         return redirect()->back()->with('success', 'Tâche terminée avec succès');
     }

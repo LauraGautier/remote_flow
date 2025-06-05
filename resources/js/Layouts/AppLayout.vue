@@ -68,6 +68,10 @@ const logout = () => {
                                     <NavLink :href="route('manager.team.kpi')" :active="route().current('manager.team.kpi')">
                                         KPIs d'équipe
                                     </NavLink>
+                                    <NavLink :href="route('slack.index')" :active="route().current('slack.*')" class="flex items-center">
+                                        <i class="fab fa-slack me-2 text-green-500"></i>
+                                        Slack
+                                    </NavLink>
                                 </template>
 
                                 <!-- Routes pour Collaborateur -->
@@ -81,6 +85,10 @@ const logout = () => {
                                     <!-- Nouvelle route KPI -->
                                     <NavLink :href="route('my.kpi')" :active="route().current('my.kpi')">
                                         Mes KPIs
+                                    </NavLink>
+                                    <NavLink :href="route('slack.index')" :active="route().current('slack.*')" class="flex items-center">
+                                        <i class="fab fa-slack me-2 text-green-500"></i>
+                                        Slack
                                     </NavLink>
                                 </template>
 
@@ -270,6 +278,10 @@ const logout = () => {
                             <ResponsiveNavLink :href="route('manager.team.kpi')" :active="route().current('manager.team.kpi')">
                                 KPIs d'équipe
                             </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('slack.index')" :active="route().current('slack.*')" class="flex items-center">
+                                <i class="fab fa-slack me-2 text-green-500"></i>
+                                Slack
+                            </ResponsiveNavLink>
                         </template>
 
                         <!-- Routes pour Collaborateur -->
@@ -283,6 +295,10 @@ const logout = () => {
                             <!-- Nouvelle route KPI -->
                             <ResponsiveNavLink :href="route('my.kpi')" :active="route().current('my.kpi')">
                                 Mes KPIs
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('slack.index')" :active="route().current('slack.*')" class="flex items-center">
+                                <i class="fab fa-slack me-2 text-green-500"></i>
+                                Slack
                             </ResponsiveNavLink>
                         </template>
 

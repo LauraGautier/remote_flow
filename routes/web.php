@@ -215,4 +215,24 @@ Route::middleware([
             Route::get('/api/unread-count', [MessageController::class, 'unreadCount'])->name('unreadCount');
         });
     });
+
+    // ----------------------
+    // 👤 Routes Slack
+    // ----------------------
+
+        Route::middleware([
+        Authenticate::class,
+        AuthenticateSession::class,
+        EnsureEmailIsVerified::class,
+    ])->prefix('slack')->name('slack.')->group(function () {
+
+        // Page principale Slack
+        Route::get('/', [SlackController::class, 'index'])->name('index');
+
+        // Envoi de messages
+        Route::post('/send-message', [SlackController::class, 'sendMessage'])->name('send.message');
+
+        // Partage de KPIs
+        Route::post('/share-kpis', [SlackController::class, 'shareKpis'])->name('share.kpis');
+    });
 });
