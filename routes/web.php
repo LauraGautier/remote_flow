@@ -13,7 +13,8 @@ use App\Http\Controllers\{
     DashboardController,
     UserPresenceController,
     AdminController,
-    MessageController
+    MessageController,
+    SlackController
 };
 use App\Http\Middleware\CheckRole;
 
