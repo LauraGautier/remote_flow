@@ -236,4 +236,16 @@ Route::middleware([
         // Partage de KPIs
         Route::post('/share-kpis', [SlackController::class, 'shareKpis'])->name('share.kpis');
     });
+
+Route::get('/debug-slack-simple', function() {
+    return [
+        'step_1_env' => env('SLACK_WEBHOOK_URL') ? 'DÉFINI ✅' : 'MANQUANT ❌',
+        'step_2_config' => config('services.slack.webhook_url') ? 'DÉFINI ✅' : 'MANQUANT ❌',
+        'step_3_services_array' => config('services.slack'),
+        'step_4_has_webhook_url' => !empty(config('services.slack.webhook_url')) ? 'OUI ✅' : 'NON ❌',
+        'step_5_app_env' => config('app.env'),
+        'step_6_cache_exists' => file_exists(base_path('bootstrap/cache/config.php')) ? 'OUI' : 'NON',
+        'timestamp' => now()->format('Y-m-d H:i:s')
+    ];
+})->middleware('auth');
 });
