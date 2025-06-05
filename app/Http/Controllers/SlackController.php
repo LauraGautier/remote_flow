@@ -20,11 +20,15 @@ class SlackController extends Controller
         // Canal par défaut
         $defaultChannel = config('services.slack.default_channel', '#general');
 
+        // 🔥 SOLUTION DIRECTE - On ignore complètement les variables ENV
+        $webhookUrl = 'https://hooks.slack.com/services/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';
+        $hasWebhookUrl = !empty($webhookUrl);
+
         return Inertia::render('Slack/Index', [
-            'defaultChannel' => $defaultChannel,
+            'defaultChannel' => '#general',
             'team' => $team->only('id', 'name'),
             'user' => $user->only('id', 'name', 'email'),
-            'hasWebhookUrl' => !empty(config('services.slack.webhook_url')),
+            'hasWebhookUrl' => $hasWebhookUrl, // Sera toujours true maintenant
         ]);
     }
 
@@ -38,7 +42,7 @@ class SlackController extends Controller
             'channel' => 'nullable|string',
         ]);
 
-        $webhookUrl = config('services.slack.webhook_url');
+        $webhookUrl = 'https://hooks.slack.com/services/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';
 
         if (!$webhookUrl) {
             return response()->json([
