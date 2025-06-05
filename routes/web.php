@@ -248,4 +248,28 @@ Route::get('/debug-slack-simple', function() {
         'timestamp' => now()->format('Y-m-d H:i:s')
     ];
 })->middleware('auth');
+
+// Route de diagnostic
+Route::get('/debug-slack-simple', function() {
+    return [
+        'step_1_env' => env('SLACK_WEBHOOK_URL') ? 'DÉFINI ✅' : 'MANQUANT ❌',
+        'step_2_config' => config('services.slack.webhook_url') ? 'DÉFINI ✅' : 'MANQUANT ❌',
+        'step_3_services_array' => config('services.slack'),
+        'step_4_has_webhook_url' => !empty(config('services.slack.webhook_url')) ? 'OUI ✅' : 'NON ❌',
+        'step_5_app_env' => config('app.env'),
+        'timestamp' => now()->format('Y-m-d H:i:s')
+    ];
+})->middleware('auth');
+
+// Route de correction
+Route::get('/fix-slack-cache', function() {
+    \Artisan::call('config:clear');
+    \Artisan::call('config:cache');
+
+    return [
+        'cache_cleared' => 'OUI ✅',
+        'webhook_now' => config('services.slack.webhook_url') ? 'DÉFINI ✅' : 'MANQUANT ❌',
+        'test_slack_page' => 'Allez sur /slack pour voir si c\'est réparé'
+    ];
+})->middleware('auth');
 });
