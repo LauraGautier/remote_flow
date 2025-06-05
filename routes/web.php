@@ -272,4 +272,21 @@ Route::get('/fix-slack-cache', function() {
         'test_slack_page' => 'Allez sur /slack pour voir si c\'est réparé'
     ];
 })->middleware('auth');
+
+Route::get('/force-env-slack', function() {
+    // Lit le .env actuel
+    $envPath = base_path('.env');
+    $envContent = file_get_contents($envPath);
+
+    // Vérifie si Slack existe déjà
+    if (strpos($envContent, 'SLACK_WEBHOOK_URL') === false) {
+        // Ajoute les variables Slack
+        $slackVars = "\nSLACK_WEBHOOK_URL=https://hooks.slack.com/services/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\nSLACK_DEFAULT_CHANNEL=#general\n";
+        file_put_contents($envPath, $envContent . $slackVars);
+
+        return ['status' => 'Variables Slack ajoutées au .env', 'next' => 'Visitez /fix-slack-cache'];
+    }
+
+    return ['status' => 'Variables Slack déjà présentes', 'env_slack' => env('SLACK_WEBHOOK_URL')];
+})->middleware('auth');
 });
