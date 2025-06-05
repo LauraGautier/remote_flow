@@ -90,7 +90,7 @@ class SlackController extends Controller
      */
     public function shareKpis(Request $request)
     {
-        $webhookUrl = config('services.slack.webhook_url');
+        $webhookUrl = 'https://hooks.slack.com/services/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';
 
         if (!$webhookUrl) {
             return response()->json([
@@ -155,7 +155,7 @@ class SlackController extends Controller
      */
     public static function notifyTaskAssigned($task)
     {
-        $webhookUrl = config('services.slack.webhook_url');
+        $webhookUrl = 'https://hooks.slack.com/services/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';
 
         if (!$webhookUrl || !$task->assignedTo) {
             return false;
@@ -186,7 +186,7 @@ class SlackController extends Controller
      */
     public static function notifyTaskCompleted($task)
     {
-        $webhookUrl = config('services.slack.webhook_url');
+        $webhookUrl = 'https://hooks.slack.com/services/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';
 
         if (!$webhookUrl) {
             return false;
