@@ -23,12 +23,23 @@ use App\Http\Middleware\CheckRole;
 // ------------------
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    // Si l'utilisateur est déjà connecté, on le redirige vers son dashboard
+    if (auth()->check()) {
+        $user = auth()->user();
+        switch ($user->role) {
+            case 'administrateur':
+                return redirect()->route('admin.dashboard');
+            case 'manager':
+                return redirect()->route('manager.dashboard');
+            case 'collaborateur':
+                return redirect()->route('collaborateur.dashboard');
+            default:
+                return redirect()->route('dashboard');
+        }
+    }
+
+    // Sinon, on affiche la page de login
+    return Inertia::render('Auth/Login');
 });
 
 Route::get('/terms', function () {
@@ -236,72 +247,4 @@ Route::middleware([
         // Partage de KPIs
         Route::post('/share-kpis', [SlackController::class, 'shareKpis'])->name('share.kpis');
     });
-
-Route::get('/debug-slack-simple', function() {
-    return [
-        'step_1_env' => env('SLACK_WEBHOOK_URL') ? 'DÉFINI ✅' : 'MANQUANT ❌',
-        'step_2_config' => config('services.slack.webhook_url') ? 'DÉFINI ✅' : 'MANQUANT ❌',
-        'step_3_services_array' => config('services.slack'),
-        'step_4_has_webhook_url' => !empty(config('services.slack.webhook_url')) ? 'OUI ✅' : 'NON ❌',
-        'step_5_app_env' => config('app.env'),
-        'step_6_cache_exists' => file_exists(base_path('bootstrap/cache/config.php')) ? 'OUI' : 'NON',
-        'timestamp' => now()->format('Y-m-d H:i:s')
-    ];
-})->middleware('auth');
-
-// Route de diagnostic
-Route::get('/debug-slack-simple', function() {
-    return [
-        'step_1_env' => env('SLACK_WEBHOOK_URL') ? 'DÉFINI ✅' : 'MANQUANT ❌',
-        'step_2_config' => config('services.slack.webhook_url') ? 'DÉFINI ✅' : 'MANQUANT ❌',
-        'step_3_services_array' => config('services.slack'),
-        'step_4_has_webhook_url' => !empty(config('services.slack.webhook_url')) ? 'OUI ✅' : 'NON ❌',
-        'step_5_app_env' => config('app.env'),
-        'timestamp' => now()->format('Y-m-d H:i:s')
-    ];
-})->middleware('auth');
-
-// Route de correction
-Route::get('/fix-slack-cache', function() {
-    \Artisan::call('config:clear');
-    \Artisan::call('config:cache');
-
-    return [
-        'cache_cleared' => 'OUI ✅',
-        'webhook_now' => config('services.slack.webhook_url') ? 'DÉFINI ✅' : 'MANQUANT ❌',
-        'test_slack_page' => 'Allez sur /slack pour voir si c\'est réparé'
-    ];
-})->middleware('auth');
-
-Route::get('/force-env-slack', function() {
-    // Lit le .env actuel
-    $envPath = base_path('.env');
-    $envContent = file_get_contents($envPath);
-
-    // Vérifie si Slack existe déjà
-    if (strpos($envContent, 'SLACK_WEBHOOK_URL') === false) {
-        // Ajoute les variables Slack
-        $slackVars = "\nSLACK_WEBHOOK_URL=https://hooks.slack.com/services/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\nSLACK_DEFAULT_CHANNEL=#general\n";
-        file_put_contents($envPath, $envContent . $slackVars);
-
-        return ['status' => 'Variables Slack ajoutées au .env', 'next' => 'Visitez /fix-slack-cache'];
-    }
-
-    return ['status' => 'Variables Slack déjà présentes', 'env_slack' => env('SLACK_WEBHOOK_URL')];
-})->middleware('auth');
-
-Route::get('/debug-system-env', function() {
-    return [
-        'env_function' => env('SLACK_WEBHOOK_URL'),
-        'getenv_function' => getenv('SLACK_WEBHOOK_URL'),
-        'server_env' => $_ENV['SLACK_WEBHOOK_URL'] ?? 'NON DÉFINI',
-        'system_env' => $_SERVER['SLACK_WEBHOOK_URL'] ?? 'NON DÉFINI',
-        'config_after_clear' => config('services.slack.webhook_url'),
-        'all_env_keys' => array_keys($_ENV),
-        'forge_specific' => [
-            'forge_php' => $_ENV['FORGE_PHP'] ?? 'NON DÉFINI',
-            'app_env' => $_ENV['APP_ENV'] ?? 'NON DÉFINI'
-        ]
-    ];
-})->middleware('auth');
 });
