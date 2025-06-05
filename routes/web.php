@@ -289,4 +289,19 @@ Route::get('/force-env-slack', function() {
 
     return ['status' => 'Variables Slack déjà présentes', 'env_slack' => env('SLACK_WEBHOOK_URL')];
 })->middleware('auth');
+
+Route::get('/debug-system-env', function() {
+    return [
+        'env_function' => env('SLACK_WEBHOOK_URL'),
+        'getenv_function' => getenv('SLACK_WEBHOOK_URL'),
+        'server_env' => $_ENV['SLACK_WEBHOOK_URL'] ?? 'NON DÉFINI',
+        'system_env' => $_SERVER['SLACK_WEBHOOK_URL'] ?? 'NON DÉFINI',
+        'config_after_clear' => config('services.slack.webhook_url'),
+        'all_env_keys' => array_keys($_ENV),
+        'forge_specific' => [
+            'forge_php' => $_ENV['FORGE_PHP'] ?? 'NON DÉFINI',
+            'app_env' => $_ENV['APP_ENV'] ?? 'NON DÉFINI'
+        ]
+    ];
+})->middleware('auth');
 });
