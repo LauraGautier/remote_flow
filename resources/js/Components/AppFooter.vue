@@ -12,6 +12,13 @@
                     </Link>
                 </nav>
 
+                <!-- Badge SSL -->
+                <div class="flex justify-center">
+                    <img src="https://www.positivessl.com/images/seals/positivessl_trust_seal_sm_124x32.png"
+                         alt="SSL Certificate"
+                         class="h-8 opacity-80 hover:opacity-100 transition-opacity">
+                </div>
+
                 <!-- Copyright -->
                 <div class="text-center text-sm text-gray-500 dark:text-gray-400">
                     <p>&copy; {{ currentYear }} {{ appName }}. Tous droits réservés.</p>
