@@ -1,0 +1,163 @@
+graph TD
+    A[📋 APPLICATION DE GESTION] --> B[🔐 Authentification & Autorisation]
+    A --> C[👥 Gestion des Utilisateurs]
+    A --> D[🏢 Gestion des Équipes]
+    A --> E[📁 Gestion des Projets]
+    A --> F[🎯 Gestion des Objectifs]
+    A --> G[✅ Gestion des Tâches]
+    A --> H[📊 Tableaux de Bord]
+    A --> I[📈 Système de KPI]
+    A --> J[⏰ Suivi de Présence]
+    A --> K[🚨 Système d'Alertes]
+    A --> L[💬 Messagerie]
+    A --> M[🛠️ Administration]
+    A --> N[📱 Interface UI]
+    A --> O[🔧 Infrastructure]
+    A --> P[📄 Rapports]
+    A --> Q[🔍 Recherche & Filtres]
+    A --> R[📧 Notifications]
+
+    %% Authentification & Autorisation
+    B --> B1[Laravel Fortify]
+    B --> B2[Gestion des rôles]
+    B --> B3[Middleware d'accès]
+    B --> B4[Vérification email]
+    B --> B5[2FA]
+    B --> B6[Sessions utilisateur]
+
+    %% Gestion des Utilisateurs
+    C --> C1[Création utilisateurs]
+    C --> C2[Modification profils]
+    C --> C3[Attribution rôles]
+    C --> C4[Suppression]
+    C --> C5[Liste & recherche]
+    C --> C6[Photos de profil]
+
+    %% Gestion des Équipes
+    D --> D1[Création équipes]
+    D --> D2[Gestion membres]
+    D --> D3[Rôles équipe]
+    D --> D4[Invitations]
+    D --> D5[Équipes personnelles]
+    D --> D6[Transfert propriété]
+
+    %% Gestion des Projets
+    E --> E1[Création projets]
+    E --> E2[Modification]
+    E --> E3[Statuts projets]
+    E --> E4[Attribution équipes]
+    E --> E5[Dates début/fin]
+    E --> E6[Suppression]
+
+    %% Gestion des Objectifs
+    F --> F1[Création objectifs]
+    F --> F2[Modification]
+    F --> F3[Marquage atteints]
+    F --> F4[Dates d'échéance]
+    F --> F5[Suppression]
+
+    %% Gestion des Tâches
+    G --> G1[Création tâches]
+    G --> G2[Attribution collaborateurs]
+    G --> G3[Statuts tâches]
+    G --> G4[Démarrage/arrêt]
+    G --> G5[Suivi temps]
+    G --> G6[Association projets]
+
+    %% Tableaux de Bord
+    H --> H1[Dashboard Admin]
+    H --> H2[Dashboard Manager]
+    H --> H3[Dashboard Collaborateur]
+    
+    H1 --> H1A[Stats globales]
+    H1 --> H1B[Activité récente]
+    H1 --> H1C[Graphiques évolution]
+    
+    H2 --> H2A[Stats équipe]
+    H2 --> H2B[Performance collaborateurs]
+    H2 --> H2C[Tâches urgentes]
+    H2 --> H2D[Données présence]
+    
+    H3 --> H3A[Tâches personnelles]
+    H3 --> H3B[Projets assignés]
+    H3 --> H3C[Alertes retard]
+
+    %% Système de KPI
+    I --> I1[KPI individuels]
+    I --> I2[KPI équipe]
+    I --> I3[Historique KPI]
+    I --> I4[Calculs automatiques]
+    I --> I5[Export PDF]
+    I --> I6[Commande auto]
+
+    %% Suivi de Présence
+    J --> J1[Sessions]
+    J --> J2[Temps présence]
+    J --> J3[Stats équipe]
+    J --> J4[Présence quotidienne]
+    J --> J5[Middleware tracking]
+
+    %% Système d'Alertes
+    K --> K1[Alertes productivité]
+    K --> K2[Tâches retard]
+    K --> K3[Notifications délais]
+    K --> K4[Seuils configurables]
+
+    %% Messagerie
+    L --> L1[Conversations]
+    L --> L2[Envoi messages]
+    L --> L3[Réponses]
+    L --> L4[Statut lu/non lu]
+    L --> L5[Compteur non lus]
+    L --> L6[Historique]
+
+    %% Administration
+    M --> M1[Logs système]
+    M --> M2[Mode maintenance]
+    M --> M3[Infos système]
+    M --> M4[Configuration]
+
+    %% Interface UI
+    N --> N1[Pages Inertia/Vue]
+    N --> N2[Composants réutilisables]
+    N --> N3[Navigation responsive]
+    N --> N4[Formulaires interactifs]
+    N --> N5[Graphiques]
+
+    %% Infrastructure
+    O --> O1[Base de données]
+    O --> O2[Modèles Eloquent]
+    O --> O3[Policies]
+    O --> O4[Middleware]
+    O --> O5[Services métier]
+    O --> O6[Configuration Laravel]
+
+    %% Rapports
+    P --> P1[Export PDF KPI]
+    P --> P2[Rapports équipe]
+    P --> P3[Rapports individuels]
+    P --> P4[Templates]
+    P --> P5[Génération auto]
+
+    %% Recherche & Filtres
+    Q --> Q1[Recherche utilisateurs]
+    Q --> Q2[Filtrage rôles]
+    Q --> Q3[Recherche équipes]
+    Q --> Q4[Filtres projets/tâches]
+
+    %% Notifications
+    R --> R1[Config email]
+    R --> R2[Templates emails]
+    R --> R3[Notifications système]
+    R --> R4[Mailtrap intégration]
+
+    %% Styling
+    classDef mainNode fill:#e1f5fe,stroke:#01579b,stroke-width:3px
+    classDef categoryNode fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef subNode fill:#e8f5e8,stroke:#1b5e20,stroke-width:1px
+    classDef detailNode fill:#fff3e0,stroke:#e65100,stroke-width:1px
+
+    class A mainNode
+    class B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R categoryNode
+    class H1,H2,H3 subNode
+    class B1,B2,B3,B4,B5,B6,C1,C2,C3,C4,C5,C6,D1,D2,D3,D4,D5,D6,E1,E2,E3,E4,E5,E6,F1,F2,F3,F4,F5,F6,G1,G2,G3,G4,G5,G6,H1A,H1B,H1C,H2A,H2B,H2C,H2D,H3A,H3B,H3C,I1,I2,I3,I4,I5,I6,J1,J2,J3,J4,J5,K1,K2,K3,K4,L1,L2,L3,L4,L5,L6,M1,M2,M3,M4,N1,N2,N3,N4,N5,O1,O2,O3,O4,O5,O6,P1,P2,P3,P4,P5,Q1,Q2,Q3,Q4,R1,R2,R3,R4 detailNode
