@@ -13,8 +13,8 @@ class UserPresenceService
     // Constantes pour les limites légales
     const DAILY_LIMIT_HOURS = 10;
     const WEEKLY_LIMIT_HOURS = 44;
-    const DAILY_LIMIT_MINUTES = 600; // 10h * 60
-    const WEEKLY_LIMIT_MINUTES = 2640; // 44h * 60
+    const DAILY_LIMIT_MINUTES = 600;
+    const WEEKLY_LIMIT_MINUTES = 2640;
 
     /**
      * Récupère les durées de présence par jour pour un utilisateur
