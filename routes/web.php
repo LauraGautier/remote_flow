@@ -38,8 +38,10 @@ Route::get('/', function () {
         }
     }
 
-    // Sinon, on affiche la page de login
-    return Inertia::render('Auth/Login');
+        return Inertia::render('Auth/Login', [
+        'canResetPassword' => Route::has('password.request'),
+        'status' => session('status'),
+    ]);
 });
 
 Route::get('/terms', function () {
