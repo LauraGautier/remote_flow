@@ -103,9 +103,6 @@
                     </div>
                     <div class="p-6">
                         <div class="text-center py-6">
-                            <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
-                                <i class="fab fa-slack text-2xl text-green-500"></i>
-                            </div>
                             <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-2">
                                 Slack est intégré à votre application !
                             </h4>
@@ -114,9 +111,6 @@
                             </p>
 
                             <div class="text-center max-w-md mx-auto">
-                                <div class="p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 inline-flex mb-3">
-                                    <i class="fas fa-robot text-blue-500"></i>
-                                </div>
                                 <h5 class="font-medium text-gray-900 dark:text-white mb-2">Notifications automatiques</h5>
                                 <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
                                     <li>✅ Nouvelle tâche assignée</li>
